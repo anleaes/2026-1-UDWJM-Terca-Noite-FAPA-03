@@ -1,0 +1,135 @@
+```plantuml
+@startuml UrbanizationApp
+
+abstract class Person {
+ -first_name: Char
+ -last_name: Char
+ -national_id: Char
+ -address: Char
+ -phone: Char
+ -email: Email
+ +toString()
+}
+
+class Employee {
+ -salary: Decimal
+ -position: Char
+ -hire_date: Date
+ -is_active: Boolean
+ -constructions: ManyToMany[Construction]
+ -company: ForeignKey[Company]
+ +toString()
+}
+
+class Company {
+ -corporate_name: Char
+ -corporate_tax_id: Char
+ -email: Email
+ -phone: Char
+ -is_active: Boolean
+ +toString()
+}
+
+class Location {
+ -name: Char
+ -neighborhood: Char
+ -city: Char
+ -type: CharChoices
+ -is_paved: Boolean
+ +toString()
+}
+
+class Construction {
+ -title: Char
+ -type: CharChoices
+ -status: CharChoices
+ -start_date: Date
+ -expected_end_date: Date
+ -total_value: Decimal
+ -is_completed: Boolean
+ -photo: Image
+ -report: File
+ -location: ForeignKey[Location]
+ -company: ForeignKey[Company]
+ +toString()
+}
+
+class ConstructionEmployee {
+ -construction: ForeignKey[Construction]
+ -employee: ForeignKey[Employee]
+ -role: Char
+ -assigned_at: Date
+}
+
+class Contract {
+ -number: Char
+ -signing_date: Date
+ -value: Decimal
+ -validity_days: Integer
+ -document: File
+ -is_active: Boolean
+ -construction: ForeignKey[Construction]
+ -company: ForeignKey[Company]
+ +toString()
+}
+
+class Inspection {
+ -visit_date: DateTime
+ -status_found: CharChoices
+ -description: Text
+ -is_compliant: Boolean
+ -score: Float
+ -construction: ForeignKey[Construction]
+ -employee: ForeignKey[Employee]
+ +toString()
+}
+
+class AuditReport {
+ -number: Char
+ -issue_date: Date
+ -conclusion: Text
+ -is_approved: Boolean
+ -inspection: OneToOne[Inspection]
+ +toString()
+}
+
+class Incident {
+ -description: Text
+ -type: CharChoices
+ -occurred_at: DateTime
+ -severity: Integer
+ -is_resolved: Boolean
+ -construction: ForeignKey[Construction]
+ +toString()
+}
+
+class Equipment {
+ -name: Char
+ -type: CharChoices
+ -rental_date: Date
+ -daily_rate: Decimal
+ -is_available: Boolean
+ -construction: ForeignKey[Construction]
+ -company: ForeignKey[Company]
+ +toString()
+}
+
+
+Location *--> Construction : 1..n
+Company *--> Construction : 1..n
+Company *--> Contract : 1..n
+Company *--> Employee : 1..n
+Company *--> Equipment : 1..n
+Construction *--> Contract : 1..n
+Construction *--> Inspection : 0..n
+Construction *--> Incident : 0..n
+Construction *--> Equipment : 0..n
+Inspection *--> AuditReport : 1..1
+Employee *--> Inspection : 0..n
+Construction *--> ConstructionEmployee :: 0..n
+Employee *--> ConstructionEmployee :: 0..n
+Employee -up-|> Person : 1..1
+
+@enduml
+
+```
