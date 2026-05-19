@@ -1,4 +1,3 @@
-```plantuml
 @startuml UrbanizationApp
 
 abstract class Person {
@@ -16,8 +15,13 @@ class Employee {
  -position: Char
  -hire_date: Date
  -is_active: Boolean
- -constructions: ManyToMany[Construction]
  -company: ForeignKey[Company]
+ +toString()
+}
+
+class Citizen {
+ -registration_number: Char
+ -neighborhood_association: Char
  +toString()
 }
 
@@ -57,8 +61,15 @@ class Construction {
 class ConstructionEmployee {
  -construction: ForeignKey[Construction]
  -employee: ForeignKey[Employee]
- -role: Char
- -assigned_at: Date
+}
+
+class ConstructionEquipment {
+ -construction: ForeignKey[Construction]
+ -equipment: ForeignKey[Equipment]
+ -allocation_date: Date
+ -return_date: Date
+ -usage_cost: Decimal
+ +toString()
 }
 
 class Contract {
@@ -100,36 +111,45 @@ class Incident {
  -severity: Integer
  -is_resolved: Boolean
  -construction: ForeignKey[Construction]
+ -reported_by: ForeignKey[Citizen]
  +toString()
 }
 
 class Equipment {
  -name: Char
  -type: CharChoices
- -rental_date: Date
  -daily_rate: Decimal
  -is_available: Boolean
- -construction: ForeignKey[Construction]
  -company: ForeignKey[Company]
  +toString()
 }
 
-
+' Relacionamentos Estruturais
 Location *--> Construction : 1..n
 Company *--> Construction : 1..n
 Company *--> Contract : 1..n
 Company *--> Employee : 1..n
 Company *--> Equipment : 1..n
+
+' Relacionamentos da Obra
 Construction *--> Contract : 1..n
 Construction *--> Inspection : 0..n
 Construction *--> Incident : 0..n
-Construction *--> Equipment : 0..n
+
+' Classes Associativas
+Construction *--> ConstructionEmployee : 0..n
+Employee *--> ConstructionEmployee : 0..n
+
+Construction *--> ConstructionEquipment : 0..n
+Equipment *--> ConstructionEquipment : 0..n
+
+' Inspeção, Relatório e Cidadão
 Inspection *--> AuditReport : 1..1
 Employee *--> Inspection : 0..n
-Construction *--> ConstructionEmployee :: 0..n
-Employee *--> ConstructionEmployee :: 0..n
-Employee -up-|> Person : 1..1
+Citizen *--> Incident : 1..n
+
+' Heranças
+Employee -up-|> Person 
+Citizen -up-|> Person 
 
 @enduml
-
-```
