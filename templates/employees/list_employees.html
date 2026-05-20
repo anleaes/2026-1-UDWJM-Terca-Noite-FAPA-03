@@ -26,6 +26,7 @@
             <th>Admissao</th>
             <th>Contato</th>
             <th class="text-center">Status</th>
+            <th class="text-end pe-4">Acoes</th>
           </tr>
         </thead>
         <tbody>
@@ -51,10 +52,25 @@
                   <span class="badge badge-soft-danger">Inativo</span>
                 {% endif %}
               </td>
+              <td class="text-end pe-4">
+                <div class="btn-group btn-group-sm" role="group">
+                  <a href="{% url 'employees:edit_employee' employee.id %}"
+                     class="btn btn-outline-primary"
+                     title="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <a href="{% url 'employees:delete_employee' employee.id %}"
+                     class="btn btn-outline-danger"
+                     title="Excluir"
+                     onclick="return confirm('Confirma a exclusao do funcionario {{ employee.first_name }} {{ employee.last_name }}?');">
+                    <i class="bi bi-trash"></i>
+                  </a>
+                </div>
+              </td>
             </tr>
           {% empty %}
             <tr>
-              <td colspan="8" class="text-center py-5 text-muted">
+              <td colspan="9" class="text-center py-5 text-muted">
                 <i class="bi bi-inbox fs-1 d-block mb-2"></i>
                 Nenhum funcionario cadastrado.
                 <div class="mt-2">
