@@ -3,6 +3,14 @@ from .models import Employee
 
 
 class EmployeeForm(forms.ModelForm):
+    hire_date = forms.DateField(
+        widget=forms.DateInput(
+            attrs={'class': 'form-control', 'type': 'date'},
+            format='%Y-%m-%d',
+        ),
+        input_formats=['%Y-%m-%d'],
+        label='Data de Admissao',
+    )
 
     class Meta:
         model = Employee
@@ -16,6 +24,5 @@ class EmployeeForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'salary': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'position': forms.Select(attrs={'class': 'form-select'}),
-            'hire_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
