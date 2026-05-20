@@ -3,3 +3,5 @@ infraestruturaapp/__pycache__/*
 /apps/core/__pycache__/*
 /apps/core/migrations/*
 /wallet
+__pycache__/
+*.pyc
