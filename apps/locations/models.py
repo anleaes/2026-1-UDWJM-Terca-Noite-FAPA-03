@@ -3,12 +3,12 @@ from django.db import models
 
 class Location(models.Model):
     TYPE_CHOICES = [
-        ('RUA', 'Rua'),
-        ('AVENIDA', 'Avenida'),
-        ('PRACA', 'Praça'),
-        ('PARQUE', 'Parque'),
-        ('VIELA', 'Viela'),
-        ('OUTRO', 'Outro'),
+        ('STREET', 'Rua'),
+        ('AVENUE', 'Avenida'),
+        ('SQUARE', 'Praça'),
+        ('PARK', 'Parque'),
+        ('ALLEY', 'Viela'),
+        ('OTHER', 'Outro'),
     ]
 
     name = models.CharField('Nome', max_length=200)
