@@ -33,8 +33,8 @@ class Employee(Person):
     company = models.ForeignKey('companies.Company', on_delete=models.PROTECT, verbose_name='Empresa', null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Funcionario'
-        verbose_name_plural = 'Funcionarios'
+        verbose_name = 'Employee'
+        verbose_name_plural = 'Employees'
         ordering = ['first_name', 'last_name']
 
     def __str__(self):

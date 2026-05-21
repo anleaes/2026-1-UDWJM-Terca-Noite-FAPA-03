@@ -9,8 +9,8 @@ class Company(models.Model):
     is_active = models.BooleanField('Ativa', default=True)
 
     class Meta:
-        verbose_name = 'Empresa'
-        verbose_name_plural = 'Empresas'
+        verbose_name = 'Company'
+        verbose_name_plural = 'Companies'
         ordering = ['corporate_name']
 
     def __str__(self):

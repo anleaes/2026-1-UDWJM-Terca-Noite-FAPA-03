@@ -18,8 +18,8 @@ class Location(models.Model):
     is_paved = models.BooleanField('Pavimentado', default=False)
 
     class Meta:
-        verbose_name = 'Localização'
-        verbose_name_plural = 'Localizações'
+        verbose_name = 'Location'
+        verbose_name_plural = 'Locations'
         ordering = ['id']
 
     def __str__(self):

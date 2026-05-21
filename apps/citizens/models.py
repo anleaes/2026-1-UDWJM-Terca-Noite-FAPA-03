@@ -7,8 +7,8 @@ class Citizen(Person):
     neighborhood_association = models.CharField('Associação de Bairro', max_length=200)
 
     class Meta:
-        verbose_name = 'Cidadão'
-        verbose_name_plural = 'Cidadãos'
+        verbose_name = 'Citizen'
+        verbose_name_plural = 'Citizens'
         ordering = ['id']
 
     def __str__(self):
