@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'employees.apps.EmployeesConfig',
     'companies.apps.CompaniesConfig',
     'locations.apps.LocationsConfig',
+    'citizens.apps.CitizensConfig',
 ]
 
 MIDDLEWARE = [
