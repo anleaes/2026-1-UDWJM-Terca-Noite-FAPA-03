@@ -31,8 +31,20 @@
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'employees:list_employees' %}">Funcionarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'employees:add_employee' %}">Novo Funcionario</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Empresas</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'companies:list_companies' %}">Listar Empresas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'companies:add_company' %}">Nova Empresa</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Funcionarios</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'employees:list_employees' %}">Listar Funcionarios</a></li>
+                            <li><a class="dropdown-item" href="{% url 'employees:add_employee' %}">Novo Funcionario</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
