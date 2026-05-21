@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class EmployeesConfig(AppConfig):
+class LocationsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'employees'
-    verbose_name = 'Employees'
+    name = 'locations'
+    verbose_name = 'Locations'
