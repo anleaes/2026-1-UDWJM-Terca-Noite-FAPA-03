@@ -25,4 +25,5 @@ class EmployeeForm(forms.ModelForm):
             'salary': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'position': forms.Select(attrs={'class': 'form-select'}),
             'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'company': forms.Select(attrs={'class': 'form-select'}),
         }
