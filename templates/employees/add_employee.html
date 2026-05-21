@@ -46,7 +46,11 @@
 
           <h6 class="text-uppercase text-muted mb-3">Dados Profissionais</h6>
           <div class="row g-3">
-            <div class="col-md-4">
+            <div class="col-md-6">
+              <label class="form-label">Empresa</label>
+              {{ form.company }}
+            </div>
+            <div class="col-md-6">
               <label class="form-label">Cargo</label>
               {{ form.position }}
             </div>
@@ -61,7 +65,7 @@
               <label class="form-label">Data de Admissao</label>
               {{ form.hire_date }}
             </div>
-            <div class="col-12">
+            <div class="col-md-4 d-flex align-items-end pb-2">
               <div class="form-check">
                 {{ form.is_active }}
                 <label class="form-check-label">Funcionario ativo</label>

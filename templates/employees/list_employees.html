@@ -21,6 +21,7 @@
             <th class="ps-4">#</th>
             <th>Nome</th>
             <th>CPF</th>
+            <th>Empresa</th>
             <th>Cargo</th>
             <th>Salario</th>
             <th>Admissao</th>
@@ -38,6 +39,7 @@
                 <small class="text-muted">{{ employee.address }}</small>
               </td>
               <td>{{ employee.national_id }}</td>
+              <td>{{ employee.company }}</td>
               <td>{{ employee.get_position_display }}</td>
               <td>R$ {{ employee.salary }}</td>
               <td>{{ employee.hire_date|date:"d/m/Y" }}</td>
@@ -70,7 +72,7 @@
             </tr>
           {% empty %}
             <tr>
-              <td colspan="9" class="text-center py-5 text-muted">
+              <td colspan="10" class="text-center py-5 text-muted">
                 <i class="bi bi-inbox fs-1 d-block mb-2"></i>
                 Nenhum funcionario cadastrado.
                 <div class="mt-2">
