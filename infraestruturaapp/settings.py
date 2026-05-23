@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'incidents.apps.IncidentsConfig',
     'contracts.apps.ContractsConfig',
     'inspections.apps.InspectionsConfig',
+    'audit_reports.apps.AuditReportsConfig',
 ]
 
 MIDDLEWARE = [
