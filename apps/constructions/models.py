@@ -1,6 +1,7 @@
 from django.db import models
 from companies.models import Company
 from locations.models import Location
+from employees.models import Employee
 
 
 class Construction(models.Model):
@@ -32,6 +33,7 @@ class Construction(models.Model):
     report = models.FileField('Relatório', upload_to='docs/', blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.PROTECT, verbose_name='Localização')
     company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name='Empresa')
+    employees = models.ManyToManyField(Employee, verbose_name='Funcionários', blank=True)
 
     class Meta:
         verbose_name = 'Construction'
