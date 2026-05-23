@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'citizens.apps.CitizensConfig',
     'equipments.apps.EquipmentsConfig',
     'constructions.apps.ConstructionsConfig',
+    'incidents.apps.IncidentsConfig',
 ]
 
 MIDDLEWARE = [
