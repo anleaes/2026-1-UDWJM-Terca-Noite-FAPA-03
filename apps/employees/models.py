@@ -18,7 +18,7 @@ class Employee(Person):
     position = models.CharField('Cargo', max_length=100)
     hire_date = models.DateField('Data de contratação')
     is_active = models.BooleanField('Ativo', default=True)
-    # company = models.ForeignKey('companies.Company', verbose_name='Empresa', on_delete=models.CASCADE)
+    company = models.ForeignKey('companies.Company', verbose_name='Empresa', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Employee'
