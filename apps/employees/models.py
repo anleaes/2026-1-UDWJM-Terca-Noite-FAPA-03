@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -26,6 +27,14 @@ class Employee(Person):
         ('manager', 'Gerente'),
     ]
 
+    user = models.OneToOneField(
+        User,
+        on_delete=models.SET_NULL,
+        related_name='employee_profile',
+        null=True,
+        blank=True,
+        verbose_name='Usuário',
+    )
     salary = models.DecimalField('Salário', max_digits=10, decimal_places=2)
     position = models.CharField('Cargo', max_length=30, choices=POSITION_CHOICES)
     hire_date = models.DateField('Data de Admissão')
