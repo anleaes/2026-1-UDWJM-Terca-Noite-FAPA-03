@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'locations.apps.LocationsConfig',
     'companies.apps.CompaniesConfig',
     'constructions.apps.ConstructionsConfig',
+    'equipments.apps.EquipmentsConfig',
 ]
 
 MIDDLEWARE = [
