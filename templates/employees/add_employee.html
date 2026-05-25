@@ -5,25 +5,86 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <div class="card">
+        <div class="card app-card">
             <div class="card-header bg-dark text-white">
-                <h5 class="mb-0">Funcionário</h5>
+                <h5 class="mb-0"><i class="bi bi-person me-2"></i>Funcionário</h5>
             </div>
             <div class="card-body">
                 <form method="post">
                     {% csrf_token %}
-                    {% for field in form %}
-                        <div class="mb-3">
-                            <label class="form-label">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.errors %}
-                                <div class="text-danger small">{{ field.errors }}</div>
-                            {% endif %}
+
+                    <h6 class="text-muted mb-3 border-bottom pb-2">Dados Pessoais</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}<div class="text-danger small">{{ form.first_name.errors }}</div>{% endif %}
                         </div>
-                    {% endfor %}
-                    <div class="d-flex gap-2">
-                        <a href="{% url 'employees:list_employee' %}" class="btn btn-secondary">Cancelar</a>
-                        <button type="submit" class="btn btn-dark">Salvar</button>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}<div class="text-danger small">{{ form.last_name.errors }}</div>{% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.national_id.label }}</label>
+                            {{ form.national_id }}
+                            {% if form.national_id.errors %}<div class="text-danger small">{{ form.national_id.errors }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors }}</div>{% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.phone.label }}</label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}<div class="text-danger small">{{ form.phone.errors }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.address.label }}</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}<div class="text-danger small">{{ form.address.errors }}</div>{% endif %}
+                        </div>
+                    </div>
+
+                    <h6 class="text-muted mb-3 border-bottom pb-2 mt-4">Dados Profissionais</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.position.label }}</label>
+                            {{ form.position }}
+                            {% if form.position.errors %}<div class="text-danger small">{{ form.position.errors }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.salary.label }}</label>
+                            {{ form.salary }}
+                            {% if form.salary.errors %}<div class="text-danger small">{{ form.salary.errors }}</div>{% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{{ form.hire_date.label }}</label>
+                            {{ form.hire_date }}
+                            {% if form.hire_date.errors %}<div class="text-danger small">{{ form.hire_date.errors }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center mt-4">
+                            <div class="form-check">
+                                {{ form.is_active }}
+                                <label class="form-check-label">{{ form.is_active.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <a href="{% url 'employees:list_employee' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-lg me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-dark">
+                            <i class="bi bi-check-lg me-1"></i>Salvar
+                        </button>
                     </div>
                 </form>
             </div>
