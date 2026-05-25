@@ -30,23 +30,23 @@
           </tr>
         </thead>
         <tbody>
-          {% for item in itens %}
+          {% for employee in employees %}
             <tr>
-              <td class="ps-4 text-muted">{{ item.id }}</td>
+              <td class="ps-4 text-muted">{{ employee.id }}</td>
               <td>
-                <div class="fw-semibold">{{ item.first_name }} {{ item.last_name }}</div>
-                <small class="text-muted">{{ item.address }}</small>
+                <div class="fw-semibold">{{ employee.first_name }} {{ employee.last_name }}</div>
+                <small class="text-muted">{{ employee.address }}</small>
               </td>
-              <td>{{ item.national_id }}</td>
-              <td>{{ item.get_position_display }}</td>
-              <td>R$ {{ item.salary }}</td>
-              <td>{{ item.hire_date|date:"d/m/Y" }}</td>
+              <td>{{ employee.national_id }}</td>
+              <td>{{ employee.get_position_display }}</td>
+              <td>R$ {{ employee.salary }}</td>
+              <td>{{ employee.hire_date|date:"d/m/Y" }}</td>
               <td>
-                <div>{{ item.email }}</div>
-                <small class="text-muted">{{ item.phone }}</small>
+                <div>{{ employee.email }}</div>
+                <small class="text-muted">{{ employee.phone }}</small>
               </td>
               <td class="text-center">
-                {% if item.is_active %}
+                {% if employee.is_active %}
                   <span class="badge badge-soft-success">Ativo</span>
                 {% else %}
                   <span class="badge badge-soft-danger">Inativo</span>
@@ -54,11 +54,11 @@
               </td>
               <td class="text-end pe-4">
                 <div class="btn-group btn-group-sm" role="group">
-                  <a href="{% url 'employees:edit_employee' item.id %}"
+                  <a href="{% url 'employees:edit_employee' employee.id %}"
                      class="btn btn-outline-primary" title="Editar">
                     <i class="bi bi-pencil"></i>
                   </a>
-                  <a href="{% url 'employees:delete_employee' item.id %}"
+                  <a href="{% url 'employees:delete_employee' employee.id %}"
                      class="btn btn-outline-danger" title="Excluir"
                      onclick="return confirm('Confirma a exclusão do funcionário {{ item.first_name }} {{ item.last_name }}?');">
                     <i class="bi bi-trash"></i>
