@@ -3,14 +3,15 @@ from django.db import models
 
 class Location(models.Model):
     TYPE_CHOICES = [
-        ('street', 'Rua'),
-        ('avenue', 'Avenida'),
-        ('square', 'Praça'),
-        ('park', 'Parque'),
-        ('highway', 'Rodovia'),
+        ('STREET', 'Rua'),
+        ('AVENUE', 'Avenida'),
+        ('SQUARE', 'Praça'),
+        ('PARK', 'Parque'),
+        ('ALLEY', 'Viela'),
+        ('OTHER', 'Outro'),
     ]
 
-    name = models.CharField('Nome', max_length=150)
+    name = models.CharField('Nome', max_length=200)
     neighborhood = models.CharField('Bairro', max_length=100)
     city = models.CharField('Cidade', max_length=100)
     type = models.CharField('Tipo', max_length=20, choices=TYPE_CHOICES)
