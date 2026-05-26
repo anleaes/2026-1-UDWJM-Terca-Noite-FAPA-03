@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
@@ -16,12 +13,12 @@ def list_equipments(request, company_id):
         'company': company,
         'equipments': equipments
     }
-    return render(request, 'Equipamentos/list_equipments.html', context)
+    return render(request, 'equipments/list_equipments.html', context)
 
 
 def add_equipment(request, company_id):
     company = get_object_or_404(Company, id=company_id)
-    template_name = 'Equipamentos/add_equipment.html'
+    template_name = 'equipments/add_equipment.html'
 
     if request.method == 'POST':
         form = EquipmentForm(request.POST)
@@ -41,7 +38,7 @@ def add_equipment(request, company_id):
 def edit_equipment(request, company_id, equipment_id):
     company = get_object_or_404(Company, id=company_id)
     equipment = get_object_or_404(Equipment, id=equipment_id, company=company)
-    template_name = 'Equipamentos/add_equipment.html'
+    template_name = 'equipments/add_equipment.html'
 
     if request.method == 'POST':
         form = EquipmentForm(request.POST, instance=equipment)
