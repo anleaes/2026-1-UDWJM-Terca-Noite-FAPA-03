@@ -47,6 +47,15 @@
                         <li><a class="dropdown-item" href="{% url 'employees:add_employee' %}">Adicionar funcionário</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-geo-alt me-1"></i>Localizações
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{% url 'locations:list_location' %}">Listar localizações</a></li>
+                        <li><a class="dropdown-item" href="{% url 'locations:add_location' %}">Adicionar localização</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
