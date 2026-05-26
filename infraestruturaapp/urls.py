@@ -29,6 +29,7 @@ urlpatterns = [
     path('constructions/', include('constructions.urls', namespace='constructions')),
     path('contracts/', include('contracts.urls', namespace='contracts')),
     path('locations/', include('locations.urls', namespace='locations')),
+    path('equipments/', include('equipments.urls', namespace='equipments')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
