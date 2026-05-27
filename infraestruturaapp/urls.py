@@ -32,6 +32,7 @@ urlpatterns = [
     path('equipments/', include('equipments.urls', namespace='equipments')),
     path('incidents/', include('incidents.urls', namespace='incidents')),
     path('inspections/', include('inspections.urls', namespace='inspections')),
+    path('audit-reports/', include('audit_reports.urls', namespace='audit_reports')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
