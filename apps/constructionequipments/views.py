@@ -14,7 +14,6 @@ def list_constructionequipment(request, construction_id):
 
 
 def _available_equipment_queryset(company):
-    """Workaround for Oracle ORA-00600 bug with BooleanField in SQL: evaluate is_available in Python."""
     all_equipment = list(Equipment.objects.filter(company=company))
     available_ids = [e.pk for e in all_equipment if e.is_available]
     return Equipment.objects.filter(pk__in=available_ids)
