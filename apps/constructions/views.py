@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from rest_framework import viewsets
+from .serializer import ConstructionSerializer
 from .forms import ConstructionForm
 from .models import Construction
 
@@ -42,3 +43,8 @@ def delete_construction(request, id_construction):
     construction = get_object_or_404(Construction, id=id_construction)
     construction.delete()
     return redirect('constructions:list_constructions')
+
+
+class ConstructionViewSet(viewsets.ModelViewSet):
+    queryset = Construction.objects.all()
+    serializer_class = ConstructionSerializer
