@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from rest_framework import viewsets
+from .serializer import EmployeeSerializer
 from .forms import EmployeeForm
 from .models import Employee
 
@@ -42,3 +43,8 @@ def delete_employee(request, id_employee):
     employee = get_object_or_404(Employee, id=id_employee)
     employee.delete()
     return redirect('employees:list_employees')
+
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
