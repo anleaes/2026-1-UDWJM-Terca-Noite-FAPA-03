@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-
+from rest_framework import viewsets
+from .serializer import EquipmentSerializer
 from companies.models import Company
 from .models import Equipment
 from .forms import EquipmentForm
@@ -59,3 +60,8 @@ def delete_equipment(request, company_id, equipment_id):
     equipment.delete()
     messages.success(request, f'Equipamento "{equipment.name}" removido com sucesso!')
     return redirect('equipments:list_equipments', company_id=company_id)
+
+
+class EquipmentViewSet(viewsets.ModelViewSet):
+    queryset = Equipment.objects.all()
+    serializer_class = EquipmentSerializer
