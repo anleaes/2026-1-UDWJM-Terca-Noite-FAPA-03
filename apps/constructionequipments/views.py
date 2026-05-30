@@ -1,55 +1,74 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from datetime import datetime
+from django.contrib import messages
+from constructions.models import Construction
+from equipments.models import Equipment
 from .forms import ConstructionEquipmentForm
 from .models import ConstructionEquipment
 
 
-def add_constructionequipment(request):
+def list_constructionequipment(request, construction_id):
+    construction = get_object_or_404(Construction, id=construction_id)
+    allocations = ConstructionEquipment.objects.filter(construction=construction)
+    context = {'construction': construction, 'allocations': allocations}
+    return render(request, 'constructionequipments/list_constructionequipment.html', context)
+
+
+def _available_equipment_queryset(company):
+    """Workaround for Oracle ORA-00600 bug with BooleanField in SQL: evaluate is_available in Python."""
+    all_equipment = list(Equipment.objects.filter(company=company))
+    available_ids = [e.pk for e in all_equipment if e.is_available]
+    return Equipment.objects.filter(pk__in=available_ids)
+
+
+def add_constructionequipment(request, construction_id):
+    construction = get_object_or_404(Construction, id=construction_id)
     template_name = 'constructionequipments/add_constructionequipment.html'
     if request.method == 'POST':
         form = ConstructionEquipmentForm(request.POST)
+        form.fields['equipment'].queryset = _available_equipment_queryset(construction.company)
         if form.is_valid():
             allocation = form.save(commit=False)
+            allocation.construction = construction
+            allocation.return_date = None
             allocation.save()
-            form.save_m2m()
             allocation.equipment.is_available = False
             allocation.equipment.save()
-            return redirect('constructionequipments:list_constructionequipment')
+            messages.success(request, f'Equipamento "{allocation.equipment.name}" alocado com sucesso!')
+            return redirect('constructionequipments:list_constructionequipment', construction_id=construction_id)
     else:
         form = ConstructionEquipmentForm()
-    return render(request, template_name, {'form': form})
+        form.fields['equipment'].queryset = _available_equipment_queryset(construction.company)
+    return render(request, template_name, {'form': form, 'construction': construction})
 
 
-def list_constructionequipment(request):
-    template_name = 'constructionequipments/list_constructionequipment.html'
-    allocations = ConstructionEquipment.objects.all()
-    context = {'allocations': allocations}
-    return render(request, template_name, context)
-
-
-def edit_constructionequipment(request, id_constructionequipment):
+def edit_constructionequipment(request, construction_id, constructionequipment_id):
+    construction = get_object_or_404(Construction, id=construction_id)
+    allocation = get_object_or_404(ConstructionEquipment, id=constructionequipment_id, construction=construction)
     template_name = 'constructionequipments/add_constructionequipment.html'
-    allocation = get_object_or_404(ConstructionEquipment, id=id_constructionequipment)
     if request.method == 'POST':
         form = ConstructionEquipmentForm(request.POST, instance=allocation)
+        form.fields['equipment'].queryset = Equipment.objects.filter(company=construction.company)
         if form.is_valid():
             updated = form.save(commit=False)
             if updated.return_date:
-                daily_rate = updated.equipment.daily_rate
                 days = (updated.return_date - updated.allocation_date).days
-                updated.usage_cost = daily_rate * days
+                updated.usage_cost = updated.equipment.daily_rate * days
                 updated.equipment.is_available = True
                 updated.equipment.save()
             updated.save()
-            return redirect('constructionequipments:list_constructionequipment')
+            messages.success(request, f'Alocação de "{allocation.equipment.name}" atualizada com sucesso!')
+            return redirect('constructionequipments:list_constructionequipment', construction_id=construction_id)
     else:
         form = ConstructionEquipmentForm(instance=allocation)
-    return render(request, template_name, {'form': form})
+        form.fields['equipment'].queryset = Equipment.objects.filter(company=construction.company)
+    return render(request, template_name, {'form': form, 'construction': construction, 'allocation': allocation})
 
 
-def delete_constructionequipment(request, id_constructionequipment):
-    allocation = get_object_or_404(ConstructionEquipment, id=id_constructionequipment)
+def delete_constructionequipment(request, construction_id, constructionequipment_id):
+    construction = get_object_or_404(Construction, id=construction_id)
+    allocation = get_object_or_404(ConstructionEquipment, id=constructionequipment_id, construction=construction)
     allocation.equipment.is_available = True
     allocation.equipment.save()
     allocation.delete()
-    return redirect('constructionequipments:list_constructionequipment')
+    messages.success(request, 'Alocação removida e equipamento liberado com sucesso!')
+    return redirect('constructionequipments:list_constructionequipment', construction_id=construction_id)

@@ -24,9 +24,7 @@ class ConstructionEquipmentForm(forms.ModelForm):
 
     class Meta:
         model = ConstructionEquipment
-        exclude = ()
+        exclude = ('construction', 'usage_cost')
         widgets = {
-            'usage_cost': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-            'construction': forms.Select(attrs={'class': 'form-select'}),
             'equipment': forms.Select(attrs={'class': 'form-select'}),
         }
