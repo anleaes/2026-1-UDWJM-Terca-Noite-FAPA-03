@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'audit_reports.apps.AuditReportsConfig',
     'constructionequipments.apps.ConstructionequipmentsConfig',
     'accounts.apps.AccountsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
