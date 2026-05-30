@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from rest_framework import viewsets
+from .serializer import CitizenSerializer
 from .forms import CitizenForm
 from .models import Citizen
 
@@ -42,3 +43,8 @@ def delete_citizen(request, id_citizen):
     citizen = get_object_or_404(Citizen, id=id_citizen)
     citizen.delete()
     return redirect('citizens:list_citizens')
+
+
+class CitizenViewSet(viewsets.ModelViewSet):
+    queryset = Citizen.objects.all()
+    serializer_class = CitizenSerializer
