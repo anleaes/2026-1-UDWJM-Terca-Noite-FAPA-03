@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework import viewsets
 from .forms import InspectionForm
 from .models import Inspection
+from .serializer import InspectionSerializer
 
 
 def add_inspection(request):
@@ -41,3 +43,8 @@ def delete_inspection(request, id_inspection):
     inspection = get_object_or_404(Inspection, id=id_inspection)
     inspection.delete()
     return redirect('inspections:list_inspection')
+
+
+class InspectionViewSet(viewsets.ModelViewSet):
+    queryset = Inspection.objects.all()
+    serializer_class = InspectionSerializer
