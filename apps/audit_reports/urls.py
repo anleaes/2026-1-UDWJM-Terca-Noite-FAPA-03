@@ -8,9 +8,8 @@ router = routers.SimpleRouter()
 router.register('', views.AuditReportViewSet, basename='audit_reports')
 
 urlpatterns = [
-    path('add/', views.add_audit_report, name='add_audit_report'),
-    path('list/', views.list_audit_report, name='list_audit_report'),
-    path('edit/<int:id_audit_report>/', views.edit_audit_report, name='edit_audit_report'),
-    path('delete/<int:id_audit_report>/', views.delete_audit_report, name='delete_audit_report'),
+    path('<int:construction_id>/<int:inspection_id>/add/', views.add_audit_report, name='add_audit_report'),
+    path('<int:construction_id>/<int:inspection_id>/edit/', views.edit_audit_report, name='edit_audit_report'),
+    path('<int:construction_id>/<int:inspection_id>/delete/', views.delete_audit_report, name='delete_audit_report'),
     path('', include(router.urls)),
 ]

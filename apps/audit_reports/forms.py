@@ -14,10 +14,9 @@ class AuditReportForm(forms.ModelForm):
 
     class Meta:
         model = AuditReport
-        exclude = ()
+        fields = ['number', 'issue_date', 'conclusion', 'is_approved']
         widgets = {
             'number': forms.TextInput(attrs={'class': 'form-control'}),
-            'conclusion': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'conclusion': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
             'is_approved': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'inspection': forms.Select(attrs={'class': 'form-select'}),
         }
