@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from rest_framework import viewsets
 from constructions.models import Construction
 from equipments.models import Equipment
 from .forms import ConstructionEquipmentForm
 from .models import ConstructionEquipment
+from .serializer import ConstructionEquipmentSerializer
 
 
 def list_constructionequipment(request, construction_id):
@@ -71,3 +73,8 @@ def delete_constructionequipment(request, construction_id, constructionequipment
     allocation.delete()
     messages.success(request, 'Alocação removida e equipamento liberado com sucesso!')
     return redirect('constructionequipments:list_constructionequipment', construction_id=construction_id)
+
+
+class ConstructionEquipmentViewSet(viewsets.ModelViewSet):
+    queryset = ConstructionEquipment.objects.all()
+    serializer_class = ConstructionEquipmentSerializer
