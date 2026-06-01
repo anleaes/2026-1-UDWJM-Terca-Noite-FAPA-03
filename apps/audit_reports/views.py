@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework import viewsets
 from .forms import AuditReportForm
 from .models import AuditReport
+from .serializer import AuditReportSerializer
 
 
 def add_audit_report(request):
@@ -41,3 +43,8 @@ def delete_audit_report(request, id_audit_report):
     audit_report = get_object_or_404(AuditReport, id=id_audit_report)
     audit_report.delete()
     return redirect('audit_reports:list_audit_report')
+
+
+class AuditReportViewSet(viewsets.ModelViewSet):
+    queryset = AuditReport.objects.all()
+    serializer_class = AuditReportSerializer
