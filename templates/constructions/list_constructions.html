@@ -71,6 +71,11 @@
                      title="Equipamentos Alocados">
                     <i class="bi bi-wrench-adjustable"></i>
                   </a>
+                  <a href="{% url 'contracts:list_contracts' item.id %}"
+                     class="btn btn-outline-info"
+                     title="Contratos">
+                    <i class="bi bi-file-earmark-text"></i>
+                  </a>
                   <a href="{% url 'constructions:edit_construction' item.id %}"
                      class="btn btn-outline-primary"
                      title="Editar">
