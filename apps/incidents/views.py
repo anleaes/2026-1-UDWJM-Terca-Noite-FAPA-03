@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from rest_framework import viewsets
 from .forms import IncidentForm
 from .models import Incident
+from .serializer import IncidentSerializer
 
 
 def add_incident(request):
@@ -41,3 +42,8 @@ def delete_incident(request, id_incident):
     incident = get_object_or_404(Incident, id=id_incident)
     incident.delete()
     return redirect('incidents:list_incidents')
+
+
+class IncidentViewSet(viewsets.ModelViewSet):
+    queryset = Incident.objects.all()
+    serializer_class = IncidentSerializer
