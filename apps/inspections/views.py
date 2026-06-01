@@ -1,48 +1,56 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import viewsets
+from constructions.models import Construction
 from .forms import InspectionForm
 from .models import Inspection
 from .serializer import InspectionSerializer
 
 
-def add_inspection(request):
+def list_inspection(request, construction_id):
+    construction = get_object_or_404(Construction, id=construction_id)
+    inspections = Inspection.objects.filter(construction=construction)
+    context = {'construction': construction, 'inspections': inspections}
+    return render(request, 'inspections/list_inspection.html', context)
+
+
+def add_inspection(request, construction_id):
+    construction = get_object_or_404(Construction, id=construction_id)
     template_name = 'inspections/add_inspection.html'
     if request.method == 'POST':
         form = InspectionForm(request.POST)
+        form.fields['employee'].queryset = construction.company.employee_set.all()
         if form.is_valid():
             inspection = form.save(commit=False)
+            inspection.construction = construction
             inspection.save()
-            form.save_m2m()
-            return redirect('inspections:list_inspection')
+            return redirect('inspections:list_inspection', construction_id=construction_id)
     else:
         form = InspectionForm()
-    return render(request, template_name, {'form': form})
+        form.fields['employee'].queryset = construction.company.employee_set.all()
+    return render(request, template_name, {'form': form, 'construction': construction})
 
 
-def list_inspection(request):
-    template_name = 'inspections/list_inspection.html'
-    inspections = Inspection.objects.all()
-    context = {'inspections': inspections}
-    return render(request, template_name, context)
-
-
-def edit_inspection(request, id_inspection):
+def edit_inspection(request, construction_id, id_inspection):
+    construction = get_object_or_404(Construction, id=construction_id)
+    inspection = get_object_or_404(Inspection, id=id_inspection, construction=construction)
     template_name = 'inspections/add_inspection.html'
-    inspection = get_object_or_404(Inspection, id=id_inspection)
     if request.method == 'POST':
         form = InspectionForm(request.POST, instance=inspection)
+        form.fields['employee'].queryset = construction.company.employee_set.all()
         if form.is_valid():
             form.save()
-            return redirect('inspections:list_inspection')
+            return redirect('inspections:list_inspection', construction_id=construction_id)
     else:
         form = InspectionForm(instance=inspection)
-    return render(request, template_name, {'form': form})
+        form.fields['employee'].queryset = construction.company.employee_set.all()
+    return render(request, template_name, {'form': form, 'construction': construction, 'inspection': inspection})
 
 
-def delete_inspection(request, id_inspection):
-    inspection = get_object_or_404(Inspection, id=id_inspection)
+def delete_inspection(request, construction_id, id_inspection):
+    construction = get_object_or_404(Construction, id=construction_id)
+    inspection = get_object_or_404(Inspection, id=id_inspection, construction=construction)
     inspection.delete()
-    return redirect('inspections:list_inspection')
+    return redirect('inspections:list_inspection', construction_id=construction_id)
 
 
 class InspectionViewSet(viewsets.ModelViewSet):

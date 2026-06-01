@@ -14,12 +14,11 @@ class InspectionForm(forms.ModelForm):
 
     class Meta:
         model = Inspection
-        exclude = ()
+        fields = ['visit_date', 'status_found', 'description', 'is_compliant', 'score', 'employee']
         widgets = {
             'status_found': forms.Select(attrs={'class': 'form-select'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
             'is_compliant': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'score': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.1'}),
-            'construction': forms.Select(attrs={'class': 'form-select'}),
+            'score': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.1', 'min': '0', 'max': '10'}),
             'employee': forms.Select(attrs={'class': 'form-select'}),
         }
