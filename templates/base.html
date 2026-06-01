@@ -65,6 +65,15 @@
                         <li><a class="dropdown-item" href="{% url 'incidents:add_incident' %}">Adicionar incidente</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-people me-1"></i>Cidadãos
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{% url 'citizens:list_citizens' %}">Listar cidadãos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'citizens:add_citizen' %}">Adicionar cidadão</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
