@@ -14,13 +14,21 @@ class ContractForm(forms.ModelForm):
 
     class Meta:
         model = Contract
-        exclude = ()
+        fields = ['number', 'signing_date', 'value', 'validity_days', 'document', 'is_active', 'company']
         widgets = {
-            'number': forms.TextInput(attrs={'class': 'form-control'}),
-            'value': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-            'validity_days': forms.NumberInput(attrs={'class': 'form-control'}),
+            'number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Número do contrato'}),
+            'value': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'placeholder': 'Valor'}),
+            'validity_days': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Dias de validade'}),
             'document': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'construction': forms.Select(attrs={'class': 'form-select'}),
             'company': forms.Select(attrs={'class': 'form-select'}),
+        }
+        labels = {
+            'number': 'Número',
+            'signing_date': 'Data de assinatura',
+            'value': 'Valor',
+            'validity_days': 'Dias de validade',
+            'document': 'Documento',
+            'is_active': 'Ativo',
+            'company': 'Empresa',
         }
