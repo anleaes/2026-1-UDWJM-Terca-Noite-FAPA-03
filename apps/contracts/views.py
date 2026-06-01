@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from rest_framework import viewsets
 from .forms import ContractForm
 from .models import Contract
+from .serializer import ContractSerializer
 
 
 def add_contract(request):
@@ -41,3 +42,8 @@ def delete_contract(request, id_contract):
     contract = get_object_or_404(Contract, id=id_contract)
     contract.delete()
     return redirect('contracts:list_contracts')
+
+
+class ContractViewSet(viewsets.ModelViewSet):
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
