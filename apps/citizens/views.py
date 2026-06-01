@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from rest_framework import viewsets
 from .serializer import CitizenSerializer
 from .forms import CitizenForm
@@ -13,6 +14,7 @@ def add_citizen(request):
             f = form.save(commit=False)
             f.save()
             form.save_m2m()
+            messages.success(request, f'Cidadão "{f.first_name} {f.last_name}" adicionado com sucesso!')
             return redirect('citizens:list_citizens')
     else:
         form = CitizenForm()
@@ -33,15 +35,18 @@ def edit_citizen(request, id_citizen):
         form = CitizenForm(request.POST, instance=citizen)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Cidadão "{citizen.first_name} {citizen.last_name}" atualizado com sucesso!')
             return redirect('citizens:list_citizens')
     else:
         form = CitizenForm(instance=citizen)
-    return render(request, template_name, {'form': form})
+    return render(request, template_name, {'form': form, 'citizen': citizen})
 
 
 def delete_citizen(request, id_citizen):
     citizen = get_object_or_404(Citizen, id=id_citizen)
+    citizen_name = f'{citizen.first_name} {citizen.last_name}'
     citizen.delete()
+    messages.success(request, f'Cidadão "{citizen_name}" removido com sucesso!')
     return redirect('citizens:list_citizens')
 
 
